@@ -54,10 +54,7 @@ def run_app():
             prompt_selected = st.selectbox('Select a prompt', list(question_bank.keys()))
             prompt = question_bank[prompt_selected]['question']
             st.write(prompt)
-            submit = st.button('Generate response')
-
-            
-            if submit:
+            if submit := st.button('Generate response'):
                 with st.spinner('Generating response...'):            
                     if upload_file is not None:
                         if example_data == False:
@@ -67,7 +64,7 @@ def run_app():
                                 df = pd.read_excel(upload_file)
                         elif example_data == True:
                             df = pd.read_csv(upload_file)
-                        
+
                         prompt = question_bank[prompt_selected]['question']
                         answer = open_ai_response(prompt, df)
                         st.markdown('### Ouput:')
